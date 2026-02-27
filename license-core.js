@@ -34,18 +34,19 @@
     if (app.status !== "active") block("License Disabled");
     if (new Date() > new Date(app.expiry)) block("License Expired");
 
-    const footer = document.getElementById("app-credit");
-    const link = footer?.querySelector("a");
+    // footer check section with this:
+const footer = document.getElementById("app-credit");
+const link = footer?.querySelector("a");
 
-    if (
-      !footer ||
-      !link ||
-      !footer.innerText.includes(app.creditText) ||
-      link.href !== app.creditLink ||
-      link.innerText.trim() !== app.creditName
-    ) {
-      block("Credit Modified");
-    }
+if (
+  !footer ||
+  !link ||
+  !footer.innerText.includes("All right reserved copyright ©") ||
+  link.href !== "https://itsmilonbro.blogspot.com" ||
+  !link.innerText.includes("Freelancer Milon")
+) {
+  block("Credit Modified");
+}
 
   } catch (e) {
     block("License Server Error");
