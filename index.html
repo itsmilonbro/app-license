@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EasyCal Enterprise</title>
-
-<meta name="app-id" content="EASYCAL_PRO_01">
-<meta name="app-secret" content="MILON2026">
-<meta name="app-integrity" content="02ae31a35e9b98c345d3e2d4b4eb6bb7f17f53bdf5cf55369211616b06ad0c68">
-
-<script src="https://itsmilonbro.github.io/app-license/license-core.js"></script>
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+  <title>Faysal Enterprise · Authorized Reseller (ID: 09)-AMD </title>
+  
+  <!-- License Metadata -->
+  <meta name="app-id" content="FAISAL_RESELLER_08">
+  <meta name="app-secret" content="MILON2026">
+  <meta name="app-integrity" content="02ae31a35e9b98c345d3e2d4b4eb6bb7f17f53bdf5cf55369211616b06ad0c68">
+  
+  <!-- License Core -->
+  <script src="https://itsmilonbro.github.io/app-license/license-core.js" type="text/javascript"></script>
+  
   <style>
     /* ---------- GLOBAL RESET / DESIGN TOUCH ---------- */
     * {
@@ -337,7 +338,7 @@
       padding-top: 20px;
     }
 
-    /* ---------- MOBILE OPTIMIZATION (point 7) ---------- */
+    /* ---------- MOBILE OPTIMIZATION ---------- */
     @media screen and (max-width: 640px) {
       .container {
         padding: 16px 10px;
@@ -366,7 +367,6 @@
         margin-left: 0;
       }
 
-      /* table column widths: 1st no wrap, 2nd no wrap, 3rd input width 25%, last 18% fixed */
       table {
         width: 100%;
       }
@@ -384,10 +384,10 @@
         white-space: nowrap;
       }
       td:nth-child(3) {
-        width: 26%; /* input container */
+        width: 26%;
       }
       td:nth-child(4) {
-        width: 22%; /* cft */
+        width: 22%;
       }
 
       input[type="number"], input[readonly].cft {
@@ -403,11 +403,11 @@
       }
     }
 
-    /* ---------- PRINT STYLES (legal size, hide zero rows) ---------- */
+    /* ---------- PRINT STYLES ---------- */
     @media print {
       @page {
         size: legal;
-        margin: 0.6in 0.5in;
+        margin: 0.2in;
       }
 
       body {
@@ -431,7 +431,6 @@
         print-color-adjust: exact;
       }
 
-      /* Hide rows with zero quantity or zero RFT (for new 2/3/4 table) */
       tr[data-hide-print="true"] {
         display: none;
       }
@@ -447,7 +446,6 @@
       }
     }
 
-    /* small design sugar */
     .rft-total {
       background: #1e293b;
       color: white;
@@ -456,26 +454,24 @@
       font-size: 0.85rem;
       display: inline-block;
     }
-
   </style>
 </head>
-0p0
 <body>
 <div class="container">
 
-  <!-- HEADER with Customer Name input (point 5) -->
+  <!-- HEADER with Customer Name input -->
   <div class="top-header">
     <div class="brand">
-      <h1>🪵 AL-Madina Traders</h1>
-      <p>Savar · Premium Wood Calculator</p>
+      <h1>💥 Faisal Enterprise</h1>
+      <p> Halishahar Distributor (ID No: 09) · ✔️ Sawn Premium Mango Timber Supplier </p>
     </div>
     <div class="customer-area">
       <label>👤 Customer Name: </label>
-      <input type="text" id="customerName" placeholder="Enter Customer name" >
+      <input type="text" id="customerName" placeholder="Enter Customer name">
     </div>
   </div>
 
-  <!-- CONTROL PANEL: updated Wood Type (Sales / Purchase) with price & thickness offset (point 4) -->
+  <!-- CONTROL PANEL -->
   <div class="control-panel">
     <div class="ctrl-group">
       <label>📌Select → Sale / Purchase </label>
@@ -499,9 +495,7 @@
     <button class="reset-btn" id="resetBtn">⟲ RESET</button>
   </div>
 
-  <!-- ========== DYNAMIC TABLES ========== -->
-
-  <!-- 1) 6" Wood table – now with rows from 10ft down to 3ft (point 1) -->
+  <!-- 6" Wood table -->
   <section class="table-block" data-width="6" data-table-type="standard">
     <h2>📐 6" Sized Wood</h2>
     <table>
@@ -526,7 +520,7 @@
     </div>
   </section>
 
-  <!-- 2) 5" Wood table – extended to 3ft -->
+  <!-- 5" Wood table -->
   <section class="table-block" data-width="5" data-table-type="standard">
     <h2>📐 5" Sized Wood</h2>
     <table>
@@ -551,7 +545,7 @@
     </div>
   </section>
 
-  <!-- 3) 2"x3" Dasa table (width=6 in dataset) extended rows -->
+  <!-- 2"x3" Dasa table -->
   <section class="table-block" data-width="6" data-table-type="standard">
     <h2>🪵 2"x3" Dasa</h2>
     <table>
@@ -576,7 +570,7 @@
     </div>
   </section>
 
-  <!-- 4) NEW TABLE: 2"/3"/4" Wood – direct RFT input (point 2) -->
+  <!-- RFT Table -->
   <section class="table-block" data-table-type="rft" id="rftTable">
     <h2>📏 2" / 3" / 4" (RFT direct)</h2>
     <table>
@@ -615,37 +609,27 @@
     <span class="grand-item">💰 Total Price: ৳ <span id="grandPrice">0.00</span></span>
   </div>
 
-  <!-- ACTION BUTTONS (print/excel) -->
+  <!-- ACTION BUTTONS -->
   <div class="action-buttons">
     <button id="printBtn" class="action">🖨️ SAVE PDF / Print</button>
     <button id="excelBtn" class="action">📊 Export CSV</button>
   </div>
 
-<footer id="app-credit">
-  All right reserved copyright © 2026 by
-  <a href="https://itsmilonbro.blogspot.com" target="_blank">
-    Freelancer Milon
-  </a>
-</footer>
+  <!-- FOOTER with Credit (required for license) -->
+  <footer id="app-credit">
+    <div class="footer">
+      All right reserved copyright © 2026 by
+      <a href="https://itsmilonbro.blogspot.com" target="_blank">Freelancer Milon</a>
+    </div>
+  </footer>
 
-<span id="year"></span>
+  <!-- Simple year update script (kept separate) -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 
-<script src="https://itsmilonbro.github.io/app-license/app-main.js" type="text/javascript"></script>
+  <!-- Main Calculation JS (loads after license check) -->
+  <script src="https://itsmilonbro.github.io/app-license/app-main.js" type="text/javascript"></script>
+</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
