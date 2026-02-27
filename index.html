@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyCal Enterprise</title>
+
+<meta name="app-id" content="EASYCAL_PRO_01">
+<meta name="app-secret" content="MILON2026">
+<meta name="app-integrity" content="02ae31a35e9b98c345d3e2d4b4eb6bb7f17f53bdf5cf55369211616b06ad0c68">
+
+<script src="license-core.js"></script>
+
+
+  <style>
+    /* ---------- GLOBAL RESET / DESIGN TOUCH ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: #e7ecf2;
+      padding: 20px 16px;
+      color: #1e293b;
+    }
+
+    /* main container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 12px 30px rgba(0,20,30,0.08);
+      padding: 24px 22px;
+    }
+
+    /* ---------- HEADER SECTION with CUSTOMER ---------- */
+    .top-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(98deg, #0c4a6e 0%, #0f172a 100%);
+      color: white;
+      padding: 18px 24px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+    }
+
+    .brand h1 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .brand p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .customer-area {
+      background: rgba(255,255,255,0.12);
+      padding: 12px 18px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(4px);
+    }
+
+    .customer-area label {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #facc15;
+    }
+
+    #customerName {
+      padding: 10px 16px;
+      border-radius: 30px;
+      border: none;
+      width: 220px;
+      font-size: 0.95rem;
+      background: white;
+      color: #0f172a;
+      font-weight: 500;
+    }
+
+    /* ---------- CONTROLS – wood type (sales/purchase) + thickness + price ---------- */
+    .control-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      background: #f8fafc;
+      padding: 20px 25px;
+      border-radius: 18px;
+      margin-bottom: 24px;
+      align-items: flex-end;
+      border: 1px solid #dce5ec;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .ctrl-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ctrl-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #3a546d;
+      letter-spacing: 0.5px;
+    }
+
+    .ctrl-group select, .ctrl-group input {
+      padding: 10px 16px;
+      border-radius: 40px;
+      border: 1.5px solid #cfdfe9;
+      background: white;
+      font-size: 0.95rem;
+      min-width: 170px;
+      transition: 0.15s;
+    }
+
+    .ctrl-group select:focus, .ctrl-group input:focus {
+      border-color: #0f172a;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(15,23,42,0.08);
+    }
+
+    .ctrl-group input[readonly] {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .reset-btn {
+      background: #e11d48;
+      color: white;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      transition: 0.15s;
+      margin-left: auto;
+      border: 1px solid #be123c;
+    }
+
+    .reset-btn:hover {
+      background: #be123c;
+      transform: scale(0.97);
+    }
+
+    /* ---------- TABLE STYLES – clean, soft, responsive ---------- */
+    .table-block {
+      background: white;
+      border-radius: 20px;
+      padding: 10px 6px 18px 6px;
+      margin-bottom: 32px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+      border: 1px solid #eef2f6;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-left: 12px;
+      margin-bottom: 6px;
+      color: #0f172a;
+      display: inline-block;
+      border-bottom: 4px solid #facc15;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 6px;
+      margin-top: 8px;
+    }
+
+    th {
+      background: #f1f6fa;
+      color: #1e3f5c;
+      padding: 14px 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border: none;
+    }
+
+    td {
+      background: white;
+      padding: 6px 6px;
+      border: none;
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+
+    /* first column (INCHI) + second column (SIZE) no wrap */
+    td:first-child, td:nth-child(2) {
+      white-space: nowrap;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    /* quantity input style */
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 6px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: white;
+      transition: 0.1s;
+    }
+
+    input[type="number"]:focus {
+      border-color: #2563eb;
+      background: #fafcff;
+    }
+
+    /* CFT readonly – clean, border subtle */
+    input[readonly].cft {
+      background: #f1f9f0;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 10px 4px;
+      font-weight: 600;
+      color: #0b3b2c;
+      width: 100%;
+      text-align: center;
+      cursor: default;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+    }
+
+    /* table summary – modern flex */
+    .table-summary {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: #eef6ff;
+      padding: 14px 20px;
+      margin: 12px 6px 0 6px;
+      border-radius: 50px;
+      font-weight: 600;
+      border: 1px solid #cbdde8;
+    }
+
+    .summary-stats {
+      display: flex;
+      gap: 20px;
+    }
+
+    .summary-stats span {
+      background: white;
+      padding: 6px 18px;
+      border-radius: 30px;
+      color: #0f172a;
+      border: 1px solid #b8d1e0;
+    }
+
+    .total-rft-badge {
+      background: #0f172a;
+      color: white;
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* grand summary */
+    .grand-summary {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      color: white;
+      padding: 18px 30px;
+      border-radius: 60px;
+      margin: 20px 0 10px;
+    }
+
+    .grand-item {
+      background: #1e3a5f;
+      padding: 6px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    /* action buttons */
+    .action-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+
+    .action {
+      background: #2563eb;
+      border: none;
+      padding: 12px 28px;
+      color: white;
+      font-weight: 700;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      border: 1px solid #1e4a8b;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .action:hover {
+      background: #1e3f8f;
+      transform: translateY(-2px);
+    }
+
+    /* footer */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #5f6c7a;
+      font-size: 0.8rem;
+      border-top: 1px dashed #b9cad2;
+      padding-top: 20px;
+    }
+
+    /* ---------- MOBILE OPTIMIZATION (point 7) ---------- */
+    @media screen and (max-width: 640px) {
+      .container {
+        padding: 16px 10px;
+      }
+
+      .top-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .customer-area {
+        flex-wrap: wrap;
+      }
+
+      #customerName {
+        width: 100%;
+      }
+
+      .control-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .reset-btn {
+        margin-left: 0;
+      }
+
+      /* table column widths: 1st no wrap, 2nd no wrap, 3rd input width 25%, last 18% fixed */
+      table {
+        width: 100%;
+      }
+
+      th, td {
+        padding: 8px 3px;
+      }
+
+      td:first-child {
+        width: 22%; 
+        white-space: nowrap;
+      }
+      td:nth-child(2) {
+        width: 30%;
+        white-space: nowrap;
+      }
+      td:nth-child(3) {
+        width: 26%; /* input container */
+      }
+      td:nth-child(4) {
+        width: 22%; /* cft */
+      }
+
+      input[type="number"], input[readonly].cft {
+        padding: 10px 2px;
+        font-size: 0.85rem;
+      }
+
+      .grand-summary {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+        text-align: center;
+      }
+    }
+
+    /* ---------- PRINT STYLES (legal size, hide zero rows) ---------- */
+    @media print {
+      @page {
+        size: legal;
+        margin: 0.6in 0.5in;
+      }
+
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .container {
+        box-shadow: none;
+        padding: 0.2in;
+      }
+
+      .control-panel, .action-buttons, .reset-btn, .footer, .customer-area:before, .brand p {
+        display: none;
+      }
+
+      .top-header {
+        background: #222;
+        color: black;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Hide rows with zero quantity or zero RFT (for new 2/3/4 table) */
+      tr[data-hide-print="true"] {
+        display: none;
+      }
+
+      .table-summary, .grand-summary {
+        border: 1px solid black;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      h2, .brand {
+        color: black;
+      }
+    }
+
+    /* small design sugar */
+    .rft-total {
+      background: #1e293b;
+      color: white;
+      border-radius: 50px;
+      padding: 2px 16px;
+      font-size: 0.85rem;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+0p0
+<body>
+<div class="container">
+
+  <!-- HEADER with Customer Name input (point 5) -->
+  <div class="top-header">
+    <div class="brand">
+      <h1>🪵 AL-Madina Traders</h1>
+      <p>Savar · Premium Wood Calculator</p>
+    </div>
+    <div class="customer-area">
+      <label>👤 Customer Name: </label>
+      <input type="text" id="customerName" placeholder="Enter Customer name" >
+    </div>
+  </div>
+
+  <!-- CONTROL PANEL: updated Wood Type (Sales / Purchase) with price & thickness offset (point 4) -->
+  <div class="control-panel">
+    <div class="ctrl-group">
+      <label>📌Select → Sale / Purchase </label>
+      <select id="woodTypeSelect" onchange="handleWoodTypeChange()">
+        <option value="sale" selected>Sales</option>
+        <option value="purchase">Purchase</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>📏 Thickness </label>
+      <select id="thicknessSelect">
+        <option value="1">1" inches -Pakka</option>
+        <option value="1.25">1.25" inches -Pakka</option>
+        <option value="1.5">1.5" inches -Pakka</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <label>💰 Price per CFT (৳)</label>
+      <input type="number" id="priceInput" value="470" step="1" style="background:#fef9e7;">
+    </div>
+    <button class="reset-btn" id="resetBtn">⟲ RESET</button>
+  </div>
+
+  <!-- ========== DYNAMIC TABLES ========== -->
+
+  <!-- 1) 6" Wood table – now with rows from 10ft down to 3ft (point 1) -->
+  <section class="table-block" data-width="6" data-table-type="standard">
+    <h2>📐 6" Sized Wood</h2>
+    <table>
+      <thead><tr><th>INCHI</th><th>Length (ft)</th><th>QTY (pcs)</th><th>CFT</th></tr></thead>
+      <tbody>
+        <tr data-len="10"><td>6" Wood</td><td>10' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="9"><td>6" Wood</td><td>9' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="8"><td>6" Wood</td><td>8' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="7"><td>6" Wood</td><td>7' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="6"><td>6" Wood</td><td>6' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="5"><td>6" Wood</td><td>5' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="4"><td>6" Wood</td><td>4' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="3"><td>6" Wood</td><td>3' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <div class="summary-stats">
+        <span>6" Total Quality: <span class="sumQty">0</span>Pcs</span>
+        <span>📦 CFT: <span class="sumCFT">0.000</span></span>
+      </div>
+      <div class="total-rft-badge">📏 Total RFT: <span class="totalRFT">0.00</span> ft</div>
+    </div>
+  </section>
+
+  <!-- 2) 5" Wood table – extended to 3ft -->
+  <section class="table-block" data-width="5" data-table-type="standard">
+    <h2>📐 5" Sized Wood</h2>
+    <table>
+      <thead><tr><th>INCHI</th><th>Length (ft)</th><th>QTY (pcs)</th><th>CFT</th></tr></thead>
+      <tbody>
+        <tr data-len="10"><td>5" Wood</td><td>10' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="9"><td>5" Wood</td><td>9' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="8"><td>5" Wood</td><td>8' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="7"><td>5" Wood</td><td>7' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="6"><td>5" Wood</td><td>6' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="5"><td>5" Wood</td><td>5' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="4"><td>5" Wood</td><td>4' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="3"><td>5" Wood</td><td>3' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <div class="summary-stats">
+        <span>5" Total Qty: <span class="sumQty">0</span>Pcs</span>
+        <span>📦 CFT: <span class="sumCFT">0.000</span></span>
+      </div>
+      <div class="total-rft-badge">📏 Total RFT: <span class="totalRFT">0.00</span> ft</div>
+    </div>
+  </section>
+
+  <!-- 3) 2"x3" Dasa table (width=6 in dataset) extended rows -->
+  <section class="table-block" data-width="6" data-table-type="standard">
+    <h2>🪵 2"x3" Dasa</h2>
+    <table>
+      <thead><tr><th>INCHI</th><th>Length (ft)</th><th>QTY (pcs)</th><th>CFT</th></tr></thead>
+      <tbody>
+        <tr data-len="10"><td>2"x3" Dasa</td><td>10' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="9"><td>2"x3" Dasa</td><td>9' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="8"><td>2"x3" Dasa</td><td>8' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="7"><td>2"x3" Dasa</td><td>7' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="6"><td>2"x3" Dasa</td><td>6' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="5"><td>2"x3" Dasa</td><td>5' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="4"><td>2"x3" Dasa</td><td>4' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+        <tr data-len="3"><td>2"x3" Dasa</td><td>3' - 0"</td><td><input type="number" min="0" step="1" class="qty"></td><td><input type="text" readonly class="cft"></td></tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <div class="summary-stats">
+        <span>Total 2"x3" Dasa Qty: <span class="sumQty">0</span>Pcs</span>
+        <span>📦 CFT: <span class="sumCFT">0.000</span></span>
+      </div>
+      <div class="total-rft-badge">📏 Total RFT: <span class="totalRFT">0.00</span> ft</div>
+    </div>
+  </section>
+
+  <!-- 4) NEW TABLE: 2"/3"/4" Wood – direct RFT input (point 2) -->
+  <section class="table-block" data-table-type="rft" id="rftTable">
+    <h2>📏 2" / 3" / 4" (RFT direct)</h2>
+    <table>
+      <thead><tr><th>WIDTH</th><th>INPUT RFT</th><th>CFT</th></tr></thead>
+      <tbody>
+        <tr data-width="2" data-wood="2inch">
+          <td>2" x 1" Bit Wood</td>
+          <td><input type="number" min="0" step="0.01" class="rftQty" placeholder="Input RFT"></td>
+          <td><input type="text" readonly class="cftRft"></td>
+        </tr>
+        <tr data-width="3" data-wood="3inch">
+          <td>3" x 1"  Wood</td>
+          <td><input type="number" min="0" step="0.01" class="rftQty" placeholder="Input RFT"></td>
+          <td><input type="text" readonly class="cftRft"></td>
+        </tr>
+        <tr data-width="4" data-wood="4inch">
+          <td>4" x 1" Wood</td>
+          <td><input type="number" min="0" step="0.01" class="rftQty" placeholder="Input RFT"></td>
+          <td><input type="text" readonly class="cftRft"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-summary">
+      <div class="summary-stats">
+        <span>📐 Total RFT: <span id="totalRftSum">0.00</span></span>
+        <span> CFT : <span id="totalCftRft">0.000</span></span>
+      </div>
+      <div class="total-rft-badge">📌 Subtotal</div>
+    </div>
+  </section>
+
+  <!-- GRAND TOTAL -->
+  <div class="grand-summary">
+    <span class="grand-item">🟦 Grand Qty: <span id="grandQty">0</span> pcs</span>
+    <span class="grand-item">🟩 Grand CFT: <span id="grandCFT">0.000</span> ft³</span>
+    <span class="grand-item">💰 Total Price: ৳ <span id="grandPrice">0.00</span></span>
+  </div>
+
+  <!-- ACTION BUTTONS (print/excel) -->
+  <div class="action-buttons">
+    <button id="printBtn" class="action">🖨️ SAVE PDF / Print</button>
+    <button id="excelBtn" class="action">📊 Export CSV</button>
+  </div>
+
+<footer id="app-credit">
+  All right reserved copyright © 2026 by
+  <a href="https://itsmilonbro.blogspot.com" target="_blank">
+    Freelancer Milon
+  </a>
+</footer>
+
+<span id="year"></span>
+
+<script src="../app-main.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
