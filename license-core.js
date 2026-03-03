@@ -23,7 +23,10 @@
   if (!appId || !secret || !integrity) block("License Metadata Missing");
 
   try {
-    const res = await fetch("https://itsmilonbro.github.io/app-license/license-db.json");
+    const res = await fetch("https://raw.githubusercontent.com/itsmilonbro/app-license/main/license-db.json");
+
+
+
     const db = await res.json();
 
     const app = db.apps.find(a => a.appId === appId);
